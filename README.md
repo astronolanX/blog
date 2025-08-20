@@ -1,6 +1,8 @@
-# Portfolio Blog Starter
+# Blog
 
-This is a porfolio site template complete with a blog. Includes:
+A personal blog built with Next.js 14, TypeScript, and Tailwind CSS.
+
+## Features
 
 - MDX and Markdown support
 - Optimized for SEO (sitemap, robots, JSON-LD schema)
@@ -10,33 +12,31 @@ This is a porfolio site template complete with a blog. Includes:
 - Tailwind v4
 - Vercel Speed Insights / Web Analytics
 - Geist font
+- Dark mode support
 
-## Demo
+## Getting Started
 
-https://portfolio-blog-starter.vercel.app
-
-## How to Use
-
-You can choose from one of the following two methods to use this repository:
-
-### One-Click Deploy
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/solutions/blog&project-name=blog&repository-name=blog)
-
-### Clone and Deploy
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [pnpm](https://pnpm.io/installation) to bootstrap the example:
+First, install dependencies:
 
 ```bash
-pnpm create next-app --example https://github.com/vercel/examples/tree/main/solutions/blog blog
+npm install
 ```
 
-Then, run Next.js in development mode:
+Then, run the development server:
 
 ```bash
-pnpm dev
+npm run dev
 ```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Project Structure
+
+- `app/` - Next.js app directory
+- `app/blog/posts/` - Blog posts in MDX format
+- `app/components/` - React components
+- `public/` - Static assets
+
+## Deployment
 
 Deploy it to the cloud with [Vercel](https://vercel.com/templates) ([Documentation](https://nextjs.org/docs/app/building-your-application/deploying)).
