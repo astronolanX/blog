@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 ::selection {
   background-color: #47a3f3;
@@ -34,8 +34,9 @@ html {
 }
 
 .prose .anchor {
-  @apply absolute invisible no-underline;
-
+  position: absolute;
+  visibility: hidden;
+  text-decoration: none;
   margin-left: -1em;
   padding-right: 0.5em;
   width: 80%;
@@ -44,75 +45,129 @@ html {
 }
 
 .anchor:hover {
-  @apply visible;
+  visibility: visible;
 }
 
 .prose a {
-  @apply underline transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
+  text-decoration: underline;
+  transition: all 0.2s;
+  text-underline-offset: 2px;
+  text-decoration-color: rgb(163 163 163);
+  text-decoration-thickness: 0.1em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose a {
+    text-decoration-color: rgb(82 82 82);
+  }
 }
 
 .prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
+  color: rgb(212 212 212);
   content: '#';
 }
 
+@media (prefers-color-scheme: dark) {
+  .prose .anchor:after {
+    color: rgb(64 64 64);
+  }
+}
+
 .prose *:hover > .anchor {
-  @apply visible;
+  visibility: visible;
 }
 
 .prose pre {
-  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
+  background-color: rgb(250 250 250);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  border: 1px solid rgb(229 229 229);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose pre {
+    background-color: rgb(17 17 17);
+    border-color: rgb(17 17 17);
+  }
 }
 
 .prose code {
-  @apply px-1 py-0.5 rounded-lg;
+  padding: 0.25rem 0.125rem;
+  border-radius: 0.5rem;
 }
 
 .prose pre code {
-  @apply p-0;
+  padding: 0;
   border: initial;
   line-height: 1.5;
 }
 
 .prose code span {
-  @apply font-medium;
+  font-weight: 500;
 }
 
 .prose img {
   /* Don't apply styles to next/image */
-  @apply m-0;
+  margin: 0;
 }
 
 .prose p {
-  @apply my-4 text-neutral-800 dark:text-neutral-200;
+  margin: 1rem 0;
+  color: rgb(38 38 38);
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose p {
+    color: rgb(229 229 229);
+  }
 }
 
 .prose h1 {
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2;
+  font-size: 2.25rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .prose h3 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2;
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .prose strong {
-  @apply font-medium;
+  font-weight: 500;
 }
 
 .prose ul {
-  @apply list-disc pl-6;
+  list-style-type: disc;
+  padding-left: 1.5rem;
 }
 
 .prose ol {
-  @apply list-decimal pl-6;
+  list-style-type: decimal;
+  padding-left: 1.5rem;
 }
 
 .prose > :first-child {

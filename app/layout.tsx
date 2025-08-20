@@ -7,6 +7,8 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
+import Script from 'next/script'
+import ErrorBoundary from './components/error-boundary'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -52,14 +54,59 @@ export default function RootLayout({
         GeistMono.variable
       )}
     >
+      <head>
+        <Script
+          id="webcomponent-conflict-fix"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Prevent web component conflicts
+              (function() {
+                const originalDefine = customElements.define;
+                const definedElements = new Set();
+                
+                // Override customElements.define to prevent duplicate registrations
+                customElements.define = function(name, constructor, options) {
+                  if (definedElements.has(name)) {
+                    console.warn('Custom element "' + name + '" already defined, skipping duplicate registration');
+                    return;
+                  }
+                  
+                  try {
+                    originalDefine.call(this, name, constructor, options);
+                    definedElements.add(name);
+                    console.log('Custom element "' + name + '" registered successfully');
+                  } catch (error) {
+                    if (error.message.includes('already been defined')) {
+                      console.warn('Custom element "' + name + '" already defined, skipping');
+                      definedElements.add(name);
+                    } else {
+                      throw error;
+                    }
+                  }
+                };
+                
+                // Handle specific problematic elements
+                if (customElements.get('mce-autosize-textarea')) {
+                  console.log('mce-autosize-textarea already exists, preventing conflicts');
+                }
+                
+                console.log('Web component conflict prevention initialized');
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
-        <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-          <Navbar />
-          {children}
-          <Footer />
-          <Analytics />
-          <SpeedInsights />
-        </main>
+        <ErrorBoundary>
+          <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
+            <Navbar />
+            {children}
+            <Footer />
+            <Analytics />
+            <SpeedInsights />
+          </main>
+        </ErrorBoundary>
       </body>
     </html>
   )
